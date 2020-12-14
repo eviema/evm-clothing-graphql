@@ -1,13 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
 
-import CartIcon from "../cart-icon/cart-icon.component";
-import CartDropdown from "../cart-dropdown/cart-dropdown.component";
-
-import { selectCurrentUser } from "../../redux/user/user.selectors.js";
-import { selectCartHidden } from "../../redux/cart/cart.selectors.js";
+import { default as CartIcon } from "../cart-icon/cart-icon.container";
+import { default as CartDropdown } from "../cart-dropdown/cart-dropdown.container";
 
 import { auth } from "../../firebase/firebase.utils.js";
 
@@ -42,22 +37,4 @@ const Header = ({ currentUser, hidden }) => (
   </div>
 );
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  hidden: selectCartHidden,
-
-  // Note 1:
-  // hidden: selectCartHidden
-  // can be replaced with just
-  // hidden: state.cart.hidden,
-  // because hidden is a primitive type and
-  // Redux knows not to replace it
-  // if prev and next values pass shallow equality check
-  // and thus saves a re-render.
-
-  // Note 2:
-  // The use of createStructuredSelector
-  // saves passing state more than once.
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;
